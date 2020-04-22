@@ -16,14 +16,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.amdocs.media.assignement.authorization.service.CustomUserService;
+import com.amdocs.media.assignement.authorization.service.UserService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private CustomUserService userService;
+	private UserService userService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -34,17 +34,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/h2-console/**", "/generate").permitAll();
+		http.authorizeRequests().antMatchers("/h2-console/**", "/generate","/profile").permitAll();
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
-		http.authorizeRequests().antMatchers("/profile/**").authenticated().and().formLogin()
-				.loginProcessingUrl("/login").usernameParameter("username").passwordParameter("password")
-				.successHandler(this::loginSuccessHandler).failureHandler(this::loginFailureHandler).and().logout()
-				.logoutUrl("/logout") // the URL on which the clients should post if they want to logout
-				.logoutSuccessHandler(this::logoutSuccessHandler).invalidateHttpSession(true);// default response if the
-																								// client wants to get a
-																								// resource unauthorized
-
+		/*
+		 * http.authorizeRequests().antMatchers("/profile/**").authenticated().and().
+		 * formLogin()
+		 * .loginProcessingUrl("/login").usernameParameter("username").passwordParameter
+		 * ("password") .successHandler(this::loginSuccessHandler).failureHandler(this::
+		 * loginFailureHandler).and().logout() .logoutUrl("/logout") // the URL on which
+		 * the clients should post if they want to logout
+		 * .logoutSuccessHandler(this::logoutSuccessHandler).invalidateHttpSession(true)
+		 * ;// default response if the // client wants to get a // resource unauthorized
+		 */
 	}
 
 	private void loginSuccessHandler(HttpServletRequest request, HttpServletResponse response,
