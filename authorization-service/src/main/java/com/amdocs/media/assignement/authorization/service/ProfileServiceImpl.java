@@ -34,10 +34,8 @@ public class ProfileServiceImpl implements ProfileService {
 
 	@Override
 	public void update(ProfileDTO profile) throws NotFoundException, JmsException, JsonProcessingException {
-		System.out.println("Sending message to update profile" + profile);
 		ObjectMapper mapper = new ObjectMapper();
 		jmsTemplate.convertAndSend(updateQueue, mapper.writeValueAsString(profile));
-		System.out.println("Successfully send profile message");
 	}
 
 	@Override

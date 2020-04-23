@@ -31,20 +31,17 @@ public class ProfileServiceImpl implements ProfileService {
 	@JmsListener(destination = "${activemq.updateQueue}")
 	@Override
 	public void update(String profile) throws NotFoundException, JsonMappingException, JsonProcessingException {
-		System.out.println("Message received " + profile);
 		ObjectMapper objectmapper = new ObjectMapper();
 		ModelMapper mapper = new ModelMapper();
 		ProfileDTO profileDTO = objectmapper.readValue(profile, ProfileDTO.class);
 		Profile profileToUpdate = getProfile(profileDTO.getUserId());
 		mapper.map(profileDTO, profileToUpdate);
-		System.out.println(profileToUpdate);
 		profileRepository.save(profileToUpdate);
 	}
 
 	@JmsListener(destination = "${activemq.deleteQueue}")
 	@Override
 	public void delete(int userId) {
-		System.out.println("Message received " + userId);
 		profileRepository.delete(getProfile(userId));
 	}
 
