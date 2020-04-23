@@ -34,19 +34,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/h2-console/**", "/generate","/profile").permitAll();
+		http.authorizeRequests().antMatchers("/h2-console/**").permitAll();
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
-		/*
-		 * http.authorizeRequests().antMatchers("/profile/**").authenticated().and().
-		 * formLogin()
-		 * .loginProcessingUrl("/login").usernameParameter("username").passwordParameter
-		 * ("password") .successHandler(this::loginSuccessHandler).failureHandler(this::
-		 * loginFailureHandler).and().logout() .logoutUrl("/logout") // the URL on which
-		 * the clients should post if they want to logout
-		 * .logoutSuccessHandler(this::logoutSuccessHandler).invalidateHttpSession(true)
-		 * ;// default response if the // client wants to get a // resource unauthorized
-		 */
+		http.authorizeRequests().antMatchers("/profile/**").authenticated().and().formLogin()
+				.loginProcessingUrl("/login").usernameParameter("username").passwordParameter("password")
+				.successHandler(this::loginSuccessHandler).failureHandler(this::loginFailureHandler).and().logout()
+				.logoutUrl("/logout").logoutSuccessHandler(this::logoutSuccessHandler).invalidateHttpSession(true);
+
 	}
 
 	private void loginSuccessHandler(HttpServletRequest request, HttpServletResponse response,
