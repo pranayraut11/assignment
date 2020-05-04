@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jms.JmsException;
 
 import com.amdocs.media.assignement.authorization.dto.ProfileDTO;
 import com.amdocs.media.assignement.authorization.exception.NotFoundException;
@@ -21,7 +20,7 @@ class AuthorizationServiceApplicationTests {
 	@Autowired
 	private ProfileService profileService = new ProfileServiceImpl();
 	@Test
-	public void updateProfile() throws JmsException, NotFoundException, JsonProcessingException {
+	public void updateProfile() throws NotFoundException, JsonProcessingException {
 		ProfileDTO profile = new ProfileDTO();
 		profile.setMobile("87665463333");
 		profile.setAddress("A-1");

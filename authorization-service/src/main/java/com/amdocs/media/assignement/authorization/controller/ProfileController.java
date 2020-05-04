@@ -3,7 +3,6 @@ package com.amdocs.media.assignement.authorization.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jms.JmsException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,7 +31,7 @@ public class ProfileController {
 
 	@PutMapping
 	public ResponseEntity<Void> updateProfile(@RequestBody ProfileDTO profile)
-			throws JmsException, NotFoundException, JsonProcessingException {
+			throws NotFoundException, JsonProcessingException {
 		profileService.update(profile);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}

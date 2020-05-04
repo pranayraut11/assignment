@@ -1,73 +1,35 @@
 package com.amdocs.media.assignement.authorization.config;
 
-import javax.jms.ConnectionFactory;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.IntegerSerializer;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
-import org.springframework.jms.config.JmsListenerContainerFactory;
-import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
-import org.springframework.jms.support.converter.MessageConverter;
-import org.springframework.jms.support.converter.MessageType;
+
+import reactor.kafka.sender.KafkaSender;
+import reactor.kafka.sender.SenderOptions;
 
 @Configuration
 public class JmsConfig {
 
-	@Value("${activemq.broker.url}")
+	@Value("${broker.url}")
 	String brokerUrl;
 
-	@Value("${activemq.borker.username}")
-	String userName;
+	public SenderOptions<Integer, String> getSenderOption() {
+		Map<String, Object> properties = new HashMap<>();
+		properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, brokerUrl);
+		properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class);
+		properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+		return SenderOptions.create(properties);
 
-	@Value("${activemq.borker.password}")
-	String password;
+	}
 
-	/*
-	 * Initial ConnectionFactory
-	 */
 	@Bean
-	public ConnectionFactory connectionFactory() {
-		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
-		connectionFactory.setBrokerURL(brokerUrl);
-		connectionFactory.setUserName(userName);
-		connectionFactory.setPassword(password);
-		return connectionFactory;
+	public KafkaSender<Integer, String> getKafkaSender() {
+		return KafkaSender.create(getSenderOption());
 	}
-
-	@Bean // Serialize message content to json using TextMessage
-	public MessageConverter jacksonJmsMessageConverter() {
-		MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
-		converter.setTargetType(MessageType.TEXT);
-		converter.setTypeIdPropertyName("_type");
-		return converter;
-	}
-
-	/*
-	 * Used for Receiving Message
-	 */
-	@Bean
-	public JmsListenerContainerFactory<?> jsaFactory(ConnectionFactory connectionFactory,
-			DefaultJmsListenerContainerFactoryConfigurer configurer) {
-		DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-		factory.setMessageConverter(jacksonJmsMessageConverter());
-		configurer.configure(factory, connectionFactory);
-		return factory;
-	}
-
-	/*
-	 * Used for Sending Messages.
-	 */
-	@Bean
-	public JmsTemplate jmsTemplate() {
-		JmsTemplate template = new JmsTemplate();
-		template.setMessageConverter(jacksonJmsMessageConverter());
-		template.setConnectionFactory(connectionFactory());
-		//template.setPubSubDomain(true);
-		return template;
-	}
-
 }
