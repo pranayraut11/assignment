@@ -2,17 +2,26 @@ package com.amdocs.media.assignement.authorization.dto;
 
 import java.io.Serializable;
 
-public class ProfileDTO implements Serializable{
+public class ProfileDTO implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2898542330106772174L;
-	
+
+	private Integer id;
 	private Integer userId;
 
 	private String address;
 	private String mobile;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public Integer getUserId() {
 		return userId;

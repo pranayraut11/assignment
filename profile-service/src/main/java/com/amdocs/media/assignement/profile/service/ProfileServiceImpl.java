@@ -15,6 +15,8 @@ import com.amdocs.media.assignement.profile.repository.ProfileRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import reactor.core.publisher.Mono;
+
 @Service
 public class ProfileServiceImpl implements ProfileService {
 
@@ -23,13 +25,10 @@ public class ProfileServiceImpl implements ProfileService {
 	@Autowired
 	private ProfileRepository profileRepository;
 
-	public ProfileServiceImpl() {
-
-	}
-
 	@Override
-	public Profile save(Profile profile) {
-		return profileRepository.save(profile);
+	public Mono<Profile> save(Profile profile) {
+		System.out.println("In Save Profile");
+		return Mono.just(profileRepository.save(profile));
 	}
 
 	@Override

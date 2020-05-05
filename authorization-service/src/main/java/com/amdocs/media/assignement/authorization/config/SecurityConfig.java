@@ -34,10 +34,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/h2-console/**").permitAll();
+		http.authorizeRequests().antMatchers("/h2-console/**","/profile/**").permitAll();
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
-		http.authorizeRequests().antMatchers("/profile/**").authenticated().and().formLogin()
+		http.authorizeRequests().antMatchers("/profiless/**").authenticated().and().formLogin()
 				.loginProcessingUrl("/login").usernameParameter("username").passwordParameter("password")
 				.successHandler(this::loginSuccessHandler).failureHandler(this::loginFailureHandler).and().logout()
 				.logoutUrl("/logout").logoutSuccessHandler(this::logoutSuccessHandler).invalidateHttpSession(true);
