@@ -40,24 +40,24 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	@Override
-	public Mono<Disposable> update(ProfileDTO profile) throws NotFoundException, JsonProcessingException {
+	public void update(ProfileDTO profile) throws NotFoundException, JsonProcessingException {
 		Message<ProfileDTO> profileDTO = new Message<>();
 		profileDTO.setAction("updateProfile");
 		profileDTO.setDtoName(ProfileDTO.class.getName());
 		profileDTO.setMessage(profile);
-		return Mono.just(sendMessage(updateQueue, profileDTO));
+		sendMessage(updateQueue, profileDTO);
 
 	}
 
 	@Override
-	public Mono<Disposable> delete(int profileId) throws JsonProcessingException {
+	public void delete(int profileId) throws JsonProcessingException {
 		ProfileDTO profile = new ProfileDTO();
 		profile.setUserId(profileId);
 		Message<ProfileDTO> profileDTO = new Message<>();
 		profileDTO.setAction("updateProfile");
 		profileDTO.setDtoName(ProfileDTO.class.getName());
 		profileDTO.setMessage(profile);
-		return Mono.just(sendMessage(updateQueue, profileDTO));
+		sendMessage(updateQueue, profileDTO);
 	}
 
 	private <T> Disposable sendMessage(String topic, Message<T> message) throws JsonProcessingException {

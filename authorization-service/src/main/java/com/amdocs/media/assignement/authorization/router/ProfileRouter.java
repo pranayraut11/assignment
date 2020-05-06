@@ -2,8 +2,6 @@
  * package com.amdocs.media.assignement.authorization.router;
  * 
  * import static
- * org.springframework.web.reactive.function.server.RequestPredicates.DELETE;
- * import static
  * org.springframework.web.reactive.function.server.RequestPredicates.GET;
  * import static
  * org.springframework.web.reactive.function.server.RequestPredicates.accept;

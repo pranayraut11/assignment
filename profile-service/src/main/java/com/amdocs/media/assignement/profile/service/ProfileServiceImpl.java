@@ -27,7 +27,6 @@ public class ProfileServiceImpl implements ProfileService {
 
 	@Override
 	public Mono<Profile> save(Profile profile) {
-		System.out.println("In Save Profile");
 		return Mono.just(profileRepository.save(profile));
 	}
 
@@ -44,7 +43,7 @@ public class ProfileServiceImpl implements ProfileService {
 		profileRepository.delete(getProfile(userId.getUserId()));
 	}
 
-	private Profile getProfile(Integer userId) {
+	public Profile getProfile(Integer userId) {
 		Optional<Profile> profileReponse = profileRepository.findByUserId(userId);
 		return profileReponse.orElseThrow(() -> new NotFoundException("Profile"));
 
