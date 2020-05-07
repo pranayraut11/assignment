@@ -3,25 +3,25 @@ This project in based on microservices architecture which includes User and User
 
 ## Getting Started
 
-### Prerequisites
+## Prerequisites
 
 * Java 8 or later
 * Maven 3
 * Git
 * Kafka 2.12
 
-### Features
+## Features
 
 * Reactive
 * Event-Driven
 
 
-### Clone
+## Clone
 To get started you can simply clone this repository using git:
 ```
 git clone https://github.com/pranayraut11/assignment.git
 ```
-### Installing
+## Installing
 ```
 Install Kafka : https://kafka.apache.org/quickstart
 Create topic : "demo-topic"
@@ -42,7 +42,7 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-### Database 
+## Database 
 It uses a H2 in memory database (for now), can be changed easily in the application.properties for any other database.
 
 To check "user" table in H2 database use
@@ -63,7 +63,7 @@ Add one record to user table <br>
 insert into USER values (1,'$2a$10$FhAL6iexaBBKjG03nGcu9eZawQ1hyfq9SGdXcIEM2J82FqQ4TBU0C','demo');
 ```    
     
-### Running the test
+## Running the test
 Use following endpoints
 
 1 : Login API method POST 
