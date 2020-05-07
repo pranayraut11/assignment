@@ -76,7 +76,8 @@ http://localhost:9090/profile
 ```
 Request Json 
 ```
-{ 
+{  
+    "userId":"1",
     "address":"38",
     "mobile" : "987987987987"
 }
