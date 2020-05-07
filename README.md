@@ -1,49 +1,106 @@
-# assignment
-Technology used in this project <br>
-<ul>
-<li>Java</li>
-<li>Spring cloud</li>
-<li>Spring security</li>
-<li>Activemq</li>
-<li>H2 Database</li>
-</ul>
-<br>
+# Sample Microservice Project
+This project in based on microservices architecture which includes User and User Profile related functionality.
+
+## Getting Started
+
+### Prerequisites
+
+* Java 8 or later
+* Maven 3
+* Git
+* Kafka 2.12
+
+### Features
+
+* Reactive
+* Event-Driven
 
 
-Steps to run all projects <br>
-1 : Install Activemq : https://activemq.apache.org/version-5-getting-started.html <br><br>
-2 : Run Activemq : verify http://localhost:8161/admin (Username : admin , Password : admin) <br><br>
-3 : Goto discovery-server project and run command : <br> <p><b> mvn clean install </b>and<b> mvn spring-boot:run</b>  (verify http://localhost:7070)<br><br>
-4 : Goto authorization-service project and run command : <br><p><b> mvn clean install </b>and<b> mvn spring-boot:run</b> <br><br>
-    To check "user" table in H2 database use http://localhost:9090/h2-console/ url. (H2 database password : <b>password</b>)<br>
-    Add one record to user table <br> 
+### Clone
+To get started you can simply clone this repository using git:
+```
+git clone https://github.com/pranayraut11/assignment.git
+```
+### Installing
+```
+Install Kafka : https://kafka.apache.org/quickstart
+Create topic : "demo-topic"
+```
+Goto discovery-server project and run command : 
+```
+mvn clean install 
+mvn spring-boot:run 
+```
+Goto authorization-service project and run command : 
+```
+mvn clean install 
+mvn spring-boot:run
+```
+Goto authorization-service project and run command :
+```
+mvn clean install 
+mvn spring-boot:run
+```
+
+### Database 
+It uses a H2 in memory database (for now), can be changed easily in the application.properties for any other database.
+
+To check "user" table in H2 database use
+```
+http://localhost:9090/h2-console/
+username : sa
+password : password
+```
+To check "profile" table in H2 database use
+```
+http://localhost:6060/h2-console/
+username : sa
+password : password
+```
+### Default data
+Add one record to user table <br> 
+```    
+insert into USER values (1,'$2a$10$FhAL6iexaBBKjG03nGcu9eZawQ1hyfq9SGdXcIEM2J82FqQ4TBU0C','demo');
+```    
     
-    
-    insert into USER values (1,'$2a$10$FhAL6iexaBBKjG03nGcu9eZawQ1hyfq9SGdXcIEM2J82FqQ4TBU0C','demo');
-    
-    
-    
-5 : Goto authorization-service project and run command : <br><p><b> mvn clean install </b>and<b> mvn spring-boot:run</b> <br><br>
-    To check "profile" table in H2 database use http://localhost:6060/h2-console/ url. (H2 database password : <b>password</b>)<br>
-    
-    
-    Note : Activemq should be up and running 
-    
-    
-<h3> Test project : </h3><br>
-Use following endpoints <br>
-1 : Login API method POST - <br> http://localhost:9090/login?username=demo&password=123<br><br>
-2 : Save profile API method POST - <br> http://localhost:9090/profile <br> 
-   request Json :  { 
-	        "address":"38",
-	        "mobile" : "987987987987"
-    } <br><br>
-3 : Update profile API method PUT - <br> http://localhost:9090/profile <br> 
-   request Json :  { "userId":"1",
-	        "address":"38",
-	        "mobile" : "987987987987"
-    } <br><br>
-4 : Delete profile API method DELETE - <br> http://localhost:9090/profile?userId=1 <br> <br>
-   
-5 : Logout : <br> http://localhost:9090/logout    
-    
+### Running the test
+Use following endpoints
+
+1 : Login API method POST 
+```
+http://localhost:9090/login?username=demo&password=123
+```
+2 : Save profile API method POST 
+```
+http://localhost:9090/profile
+```
+Request Json 
+```
+{ 
+    "address":"38",
+    "mobile" : "987987987987"
+}
+```
+3 : Update profile API method PUT
+```
+http://localhost:9090/profile
+```
+Request Json 
+```
+{ 
+      "userId":"1",
+      "address":"38",
+      "mobile" : "987987987987"
+}
+```
+4 : Delete profile API method DELETE 
+```
+http://localhost:9090/profile?userId=1
+```
+5 : Logout 
+```
+http://localhost:9090/logout    
+```    
+
+## Built With
+Maven
