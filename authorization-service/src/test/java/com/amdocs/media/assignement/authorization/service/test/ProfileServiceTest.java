@@ -1,4 +1,4 @@
-package com.amdocs.media.assignement.authorization.controller;
+package com.amdocs.media.assignement.authorization.service.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.amdocs.media.assignement.authorization.controller.ProfileController;
 import com.amdocs.media.assignement.authorization.dto.ProfileDTO;
 import com.amdocs.media.assignement.authorization.exception.NotFoundException;
 import com.amdocs.media.assignement.authorization.service.ProfileServiceImpl;
@@ -19,7 +20,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import reactor.core.publisher.Mono;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ProfileControllerTest {
+public class ProfileServiceTest {
 
 	@Mock
 	private ProfileServiceImpl profileService;
