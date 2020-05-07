@@ -79,21 +79,11 @@ public class ProfileServiceTest {
 	public void updateProfileNotFoundExceptionTest()
 			throws JsonMappingException, NotFoundException, JsonProcessingException {
 
-		Profile profile = new Profile();
-		profile.setId(1);
-		profile.setAddress("104");
-		profile.setMobile("123213123");
-		profile.setUserId(1);
-
 		ProfileDTO profileDTO = new ProfileDTO();
 		profileDTO.setUserId(1);
 		profileDTO.setAddress("105");
 		profileDTO.setMobile("8786876");
-
-		when(profileRepository.save(profile)).thenReturn(profile);
-
 		profileService.update(profileDTO);
-		verify(profileRepository, times(1)).save(profile);
 
 	}
 

@@ -44,18 +44,7 @@ public class UserServiceTest {
 
 	@Test(expected = NotFoundException.class)
 	public void loadUserUserNotFoundExceptionTest() {
-
-		User user = new User();
-		user.setId(1);
-		user.setUsername("demo");
-		user.setPassword("123");
-
-		when(userRepository.findByUsername("user")).thenReturn(Optional.of(user));
-
-		UserDetails userDetaisl = userServiceImpl.loadUserByUsername("demo");
-
-		assertEquals(user.getPassword(), userDetaisl.getPassword());
-
+		userServiceImpl.loadUserByUsername("demo");
 	}
 
 }
