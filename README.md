@@ -5,7 +5,7 @@ This project in based on microservices architecture which includes User and User
 
 ## Prerequisites
 
-* Java 8 or later
+* Java 8
 * Maven 3
 * Git
 * Kafka 2.12
@@ -36,11 +36,15 @@ Goto authorization-service project and run command :
 mvn clean install 
 mvn spring-boot:run
 ```
-Goto authorization-service project and run command :
+Goto profile-service project and run command :
 ```
 mvn clean install 
 mvn spring-boot:run
 ```
+
+## Servers
+authorizatio-service uses Tomcat <br>
+profile-service uses Netty
 
 ## Database 
 It uses a H2 in memory database (for now), can be changed easily in the application.properties for any other database.
@@ -51,11 +55,8 @@ http://localhost:9090/h2-console/
 username : sa
 password : password
 ```
-To check "profile" table in H2 database use
 ```
-http://localhost:6060/h2-console/
-username : sa
-password : password
+Note : we can not access h2-console for profile-service because we are using Netty server.
 ```
 ### Default data
 Add one record to user table <br> 
@@ -90,8 +91,8 @@ Request Json
 ```
 { 
       "userId":"1",
-      "address":"38",
-      "mobile" : "987987987987"
+      "address":"104",
+      "mobile" : "987987987"
 }
 ```
 4 : Delete profile API method DELETE 
