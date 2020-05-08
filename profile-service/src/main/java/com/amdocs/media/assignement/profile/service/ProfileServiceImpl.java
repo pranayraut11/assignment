@@ -2,6 +2,7 @@ package com.amdocs.media.assignement.profile.service;
 
 import java.util.Optional;
 
+import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,18 +33,24 @@ public class ProfileServiceImpl implements ProfileService {
 
 	@Override
 	public void update(ProfileDTO profileDTO) throws NotFoundException, JsonMappingException, JsonProcessingException {
+		log.info("Updating User Profile");
 		ModelMapper mapper = new ModelMapper();
+		mapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
 		Profile profileToUpdate = getProfile(profileDTO.getUserId());
 		mapper.map(profileDTO, profileToUpdate);
 		profileRepository.save(profileToUpdate);
+		log.info("User Profile Updated successfully");
 	}
 
 	@Override
 	public void delete(ProfileDTO userId) {
+		log.info("Deleting User Profile");
 		profileRepository.delete(getProfile(userId.getUserId()));
+		log.info("Deleted User Profile");
 	}
 
 	public Profile getProfile(Integer userId) {
+		log.info("Retrieving User Profile by user id {}", userId);
 		Optional<Profile> profileReponse = profileRepository.findByUserId(userId);
 		return profileReponse.orElseThrow(() -> new NotFoundException("Profile"));
 

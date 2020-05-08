@@ -23,7 +23,7 @@ public class ObjectConverter {
 	public static Object getObject(String json) throws JsonMappingException, JsonProcessingException {
 		ObjectNode objectNode = objectmapper.readValue(json, ObjectNode.class);
 		if (objectNode.hasNonNull(DTO_NAME)) {
-			return convert(objectNode.get(DTO_NAME).asText(), objectNode.get(MESSAGE).asText());
+			return convert(objectNode.get(DTO_NAME).asText(), objectNode.get(MESSAGE).toString());
 		}
 		return null;
 
@@ -31,8 +31,9 @@ public class ObjectConverter {
 
 	private static Object convert(String action, String objectJson)
 			throws JsonMappingException, JsonProcessingException {
+
 		switch (action) {
-		case "profileDTO":
+		case "ProfileDTO":
 			return objectmapper.readValue(objectJson, ProfileDTO.class);
 
 		default:
